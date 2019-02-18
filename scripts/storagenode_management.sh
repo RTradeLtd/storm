@@ -70,9 +70,12 @@ case "$1" in
     kill)
         docker kill storagenode
         ;;
+    logs)
+        docker logs -t storagenode
+        ;;
     *)
         echo "[ERROR] invalid invocation"
-        echo "usage: ./storagenode_management.sh [create-identity | authorize-identity | pull | run | dashboard | upgrade | start | kill]"
+        echo "usage: ./storagenode_management.sh [create-identity | authorize-identity | pull | run | dashboard | upgrade | start | kill | logs]"
         ;;
 
 esac
