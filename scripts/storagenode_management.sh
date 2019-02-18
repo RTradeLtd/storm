@@ -6,13 +6,13 @@
 # configuration variables
 VERSION="alpha"
 EXPOSED_PORT="28967"
-ETH_WALLET="0xXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-EMAIL="user@example.com"
-ADDRESS="domain.ddns.net:$EXPOSED_PORT"
+ETH_WALLET="...."
+EMAIL="..."
+ADDRESS="...:$EXPOSED_PORT"
 BANDWIDTH="2TB"
 STORAGE="2TB"
 IDENTITY_DIR="/home/$USER/.local/share/storj/identity/storagenode"
-STORAGE_DIR=".."
+STORAGE_DIR="..."
 
 case "$1" in 
 
@@ -56,6 +56,9 @@ case "$1" in
             -v "$STORAGE_DIR":/app/config \
             --name storagenode "storjlabs/storagenode:$VERSION"
         ;;
+    start)
+        docker start storagenode
+        ;;
     dashboard)
         docker exec -it storagenode /app/dashboard.sh
         ;;
@@ -64,9 +67,12 @@ case "$1" in
         docker rm storagenode
         docker pull "storjlabs/storagenode:$VERSION"
         ;;
+    kill)
+        docker kill storagenode
+        ;;
     *)
         echo "[ERROR] invalid invocation"
-        echo "usage: ./storagenode_management.sh [create-identity | authorize-identity | pull | run | dashboard | upgrade]"
+        echo "usage: ./storagenode_management.sh [create-identity | authorize-identity | pull | run | dashboard | upgrade | start | kill]"
         ;;
 
 esac
